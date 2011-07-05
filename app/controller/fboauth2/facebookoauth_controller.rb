@@ -1,4 +1,4 @@
-require 'Fboauth2'
+require 'fboauth2'
 
 class FacebookoauthController < ApplicationController
 
