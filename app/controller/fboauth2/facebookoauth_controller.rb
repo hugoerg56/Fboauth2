@@ -3,7 +3,7 @@ require 'fboauth2'
 class FacebookoauthController < ApplicationController
 
   def auth
-    url = Fboauth2::Newfbclient.get_auth(request.env["HTTP_HOST"], params) #piden la creacion de un nuevo fb client y regresa la url para hacer el redirect a fb, se envia el url del host como parametro
+    url = Fboauth2::Newfbclient.get_auth(request.env["HTTP_HOST"]) #piden la creacion de un nuevo fb client y regresa la url para hacer el redirect a fb, se envia el url del host como parametro
     redirect_to url #redirect a facebook para hacer el auth
   end
   
@@ -15,7 +15,7 @@ class FacebookoauthController < ApplicationController
     if !conf_data[params[:config]].nil? && conf_data[params[:config]] != "" && !params[:code].nil? && params[:code] != ""
       
       #toma los datos del usuario de facebook y los coloca en fb_user despues del auth
-      client = Fboauth2::Newfbclient.auth_callback(params[:code], Fboauth2::Newfbclient.get_url(request.env["HTTP_HOST"], params[:config]))
+      client = Fboauth2::Newfbclient.auth_callback(params[:code], Fboauth2::Newfbclient.get_url(request.env["HTTP_HOST"]))
       fb_user = client.selection.me.info! 
       
       #crea un nuevo registro en la db
