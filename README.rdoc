@@ -1,8 +1,77 @@
 = Fboauth2
 
-Description goes here.
+=== Requirements
 
-== Contributing to Fboauth2
+* fbgraph 1.6.0
+
+
+=== Installation
+
+1) Just place a link like this on your site: 
+ - /oauth2_facebook/fb_auth?config=example_config_name&param1=any data
+
+* config_name: You can see this in the yml file example. 
+* param1(optional): You can pass any number of parameters through this url 
+
+2) create a yml file on your config folder named "fbconfig.yml" /config/fbconfig.yml
+
+=== Exaple fbconfig.yml:
+
+    credentials:
+     production:
+      api_key: your_api_key
+      api_secret: your_api_secret
+      permission: offline_access,email #you can see a full list a permissions on http://developers.facebook.com/docs/reference/api/permissions/
+
+     development:
+       api_key: your_api_key
+       api_secret: your_api_secret
+       permission: offline_access,email #you can see a full list a permissions on http://developers.facebook.com/docs/reference/api/permissions/
+
+      test:
+       api_key: your_api_key
+       api_secret: your_api_secret
+       permission: offline_access,email #you can see a full list a permissions on http://developers.facebook.com/docs/reference/api/permissions/
+
+
+     example_config_name:
+      redirect: /redirect_url
+      hmodel: t   #(t or f) t= create a 'model'
+      model:
+       name: ModelName
+       params:
+        email: fboauh2@emailexample.com
+        phone: 123456
+      hsubmodel: t   #(t or f) t= create a 'submodel' into 'model'
+      submodel:
+       name: SubCateg
+       params:
+        subcateg:      
+         0:      
+          firstname: examplename
+          lastname: examplelastname
+      hfbmsg: t    #(t or f) t= create a message on facebook user wall
+      facebook:                                                #optional, only if hfbmsg is "t"
+       message: Message Title                                  #optional, only if hfbmsg is "t"
+       title: ¡message subtitle!                               #optional, only if hfbmsg is "t" 
+       link: http://www.link_on_the_message.com                #optional, only if hfbmsg is "t"
+       picture: http://www.link_on_the_message.com/icon.png    #optional, only if hfbmsg is "t"
+       description: Message description...                     #optional, only if hfbmsg is "t"
+
+
+=== Params on redirect url
+
+you can do:
+ * redirect: /redirect_url/ pm_name_of_param 
+ * redirect: /redirect_url?param= pm_name_of_param 
+ * redirect: /redirect_url/ pm_name_of_param /delete
+
+
+
+
+== Contributing 
+
+If you'd like to contribute a feature or bugfix: Thanks! To make sure your fix/feature has a high chance of being included, please read the following guidelines:
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
