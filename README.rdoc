@@ -7,8 +7,8 @@
 
 === Installation
 
-1) Just place a link like this on your site: 
- - /oauth2_facebook/fb_auth?config=example_config_name&param1=any data
+1) Just place a link like this on your site:
+/oauth2_facebook/fb_auth?config=example_config_name&param1=any data
 
 * config_name: You can see this in the yml file example. 
 * param1(optional): You can pass any number of parameters through this url 
@@ -59,14 +59,13 @@
        description: Message description...                     #optional, only if hfbmsg is "t"
 
 
+
 === Params on redirect url
 
 you can do:
  * redirect: /redirect_url/ pm_name_of_param 
  * redirect: /redirect_url?param= pm_name_of_param 
  * redirect: /redirect_url/ pm_name_of_param /delete
-
-
 
 
 == Contributing 
