@@ -2,7 +2,7 @@ require 'rubygems'
 require 'yaml'
 require 'fbgraph'
 
-module fboauth2 
+module Fboauth2 
   class Newfbclient
     if Rails.env == 'test'     
      @fb_data = YAML.load_file("#{File.dirname(__FILE__)}/../config/fbconfig_test.yml")
