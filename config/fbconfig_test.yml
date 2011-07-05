@@ -1,0 +1,17 @@
+credentials:
+ development:
+  api_key: 146e8668ff2b1551a79a7c7e84c10cb7
+  api_secret: 543fc3de422a169dc861b33ccbc5fbb0
+  permission: offline_access,email,user_birthday,publish_stream,user_status,user_website,user_about_me,user_interests
+
+ test:
+  api_key: c942b8909bcc1adda6a77ab7bed75014
+  api_secret: 81f2d437553d1455535b37012867c035
+  permission: offline_access,email,user_birthday,publish_stream,user_status,user_website,user_about_me,user_interests
+
+test:
+ redirect: /
+ hmodel: f
+ hsubmodel: f
+ hfbmsg: f
+
