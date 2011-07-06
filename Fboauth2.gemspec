@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "app/controller/fboauth2/facebookoauth_controller.rb",
+    "app/controller/facebookoauth_controller.rb",
     "config/fbconfig_test.yml",
     "config/routes.rb",
     "lib/Fboauth2.rb",
