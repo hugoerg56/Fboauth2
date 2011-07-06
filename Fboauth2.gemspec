@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "app/controller/fboauth2/facebookoauth_controller.rb",
     "config/fbconfig_test.yml",
-    "lib/fboauth2/routes.rb",
+    "config/routes.rb",
     "lib/Fboauth2.rb",
     "spec/fboauth2_spec.rb",
     "test/helper.rb",
