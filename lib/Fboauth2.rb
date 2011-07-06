@@ -14,7 +14,12 @@ module Fboauth2
   
   class Newfbclient
     
-    @fb_data = Newfbclient.get_conf_data
+    if Rails.env == 'test'     
+     @fb_data = YAML.load_file("#{File.dirname(__FILE__)}/../config/fbconfig_test.yml")
+    else
+     @fb_data = YAML.load_file("#{Rails.root}/config/fbconfig.yml")
+    end
+    
     @facebook_client
     @params
     
