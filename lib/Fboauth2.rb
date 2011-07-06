@@ -4,6 +4,14 @@ require 'fbgraph'
 
 
 module Fboauth2 
+
+  class Engine < ::Rails::Engine
+    config.fboauth2 = Fboauth2
+    
+    config.autoload_paths << File.expand_path(File.join(File.dirname(__FILE__), "..")) if config.respond_to? :autoload_paths
+    
+  end  
+  
   class Newfbclient
 
     @facebook_client
