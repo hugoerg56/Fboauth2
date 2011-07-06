@@ -7,31 +7,23 @@ module Fboauth2
 
   class Engine < ::Rails::Engine
     config.fboauth2 = Fboauth2
-    
     config.autoload_paths << File.expand_path(File.join(File.dirname(__FILE__), "..")) if config.respond_to? :autoload_paths
-    
   end  
   
   class Newfbclient
-    
-    if Rails.env == 'test'     
-     @fb_data = YAML.load_file("#{File.dirname(__FILE__)}/../config/fbconfig_test.yml")
-    else
-     @fb_data = YAML.load_file("#{Rails.root}/config/fbconfig.yml")
-    end
-    
+
     @facebook_client
     @params
-    
     def self.get_auth(host, params)
       @params = params
-      
+      @fb_data = Newfbclient.get_conf_data
       url = Newfbclient.get_url(host)
       @facebook_client =  Newfbclient.get_client #creo un nuevo cliente
       @facebook_client.authorization.authorize_url(:redirect_uri => url , :scope => @fb_data["credentials"][Rails.env]["permission"]) #pido autorizacion q me regresa una url a facebook
     end
     
     def self.get_client
+      @fb_data = Newfbclient.get_conf_data
       FBGraph::Client.new(:client_id => @fb_data["credentials"][Rails.env]["api_key"], :secret_id => @fb_data["credentials"][Rails.env]["api_secret"]) 
     end
     
@@ -101,11 +93,13 @@ module Fboauth2
     
     
     def self.send_fb_msg(cname, user)
+      @fb_data = Newfbclient.get_conf_data
       @facebook_client.selection.user(user[:id]).feed.publish!(:message => @fb_data[cname]["facebook"]["message"], :name => @fb_data[cname]["facebook"]["title"], :link => @fb_data[cname]["facebook"]["link"], :picture => @fb_data[cname]["facebook"]["picture"], :description => @fb_data[cname]["facebook"]["description"])
       puts "-> Facebook Message, successfully published..."    
     end
     
     def self.get_redirect_path(params)
+      @fb_data = Newfbclient.get_conf_data
       url = @fb_data[params[:config]]['redirect'].split(" ")
       url_f = ""
       url.each do |value|
