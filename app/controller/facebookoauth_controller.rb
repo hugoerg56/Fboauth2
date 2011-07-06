@@ -3,7 +3,7 @@ require 'fboauth2'
 class FacebookoauthController < ApplicationController
 
   def auth
-    url = Fboauth2::Newfbclient.get_auth(request.env["HTTP_HOST"]) #piden la creacion de un nuevo fb client y regresa la url para hacer el redirect a fb, se envia el url del host como parametro
+    url = Fboauth2::Newfbclient.get_auth(request.env["HTTP_HOST"], params) #piden la creacion de un nuevo fb client y regresa la url para hacer el redirect a fb, se envia el url del host como parametro
     redirect_to url #redirect a facebook para hacer el auth
   end
   
