@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'yaml'
 require 'fbgraph'
+require 'fboauth2/routes'
 
 module Fboauth2 
   class Newfbclient
