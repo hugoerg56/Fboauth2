@@ -9,7 +9,7 @@ module Fboauth2
      @fb_data = YAML.load_file("#{File.dirname(__FILE__)}/../config/fbconfig_test.yml")
     else
      puts "#"*50
-     purs RAILS_ROOT
+     puts RAILS_ROOT
      @fb_data = YAML.load_file("#{RAILS_ROOT}/config/fbconfig.yml")
     end
     @facebook_client
