@@ -98,9 +98,9 @@ module Fboauth2
       puts "-> Facebook Message, successfully published..."    
     end
     
-    def self.get_redirect_path(params)
+    def self.get_path(type, params)
       @fb_data = Newfbclient.get_conf_data
-      url = @fb_data[params[:config]]['redirect'].split(" ")
+      url = @fb_data[params[:config]][type].split(" ")
       url_f = ""
       url.each do |value|
         aux = value.split("_")

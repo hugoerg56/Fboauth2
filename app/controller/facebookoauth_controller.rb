@@ -12,29 +12,37 @@ class FacebookoauthController < ApplicationController
     
     conf_data = Fboauth2::Newfbclient.get_conf_data 
     
-    if !conf_data[params[:config]].nil? && conf_data[params[:config]] != "" && !params[:code].nil? && params[:code] != ""
+    if !conf_data[params[:config]].nil? && conf_data[params[:config]] != "" 
+      if !params[:code].nil? && params[:code] != ""
+
+
+        #toma los datos del usuario de facebook y los coloca en fb_user despues del auth
+        client = Fboauth2::Newfbclient.auth_callback(params[:code], Fboauth2::Newfbclient.get_url(request.env["HTTP_HOST"]))
+        fb_user = client.selection.me.info! 
       
-      #toma los datos del usuario de facebook y los coloca en fb_user despues del auth
-      client = Fboauth2::Newfbclient.auth_callback(params[:code], Fboauth2::Newfbclient.get_url(request.env["HTTP_HOST"]))
-      fb_user = client.selection.me.info! 
+        #crea un nuevo registro en la db
+        if conf_data[params[:config]]["hmodel"] == "t"
+          Fboauth2::Newfbclient.crate_new_m(conf_data, params, fb_user)
+        end
       
-      #crea un nuevo registro en la db
-      if conf_data[params[:config]]["hmodel"] == "t"
-       Fboauth2::Newfbclient.crate_new_m(conf_data, params, fb_user)
+        #Publica mensaje en facebook
+        if conf_data[params[:config]]["hfbmsg"] == "t"
+          Fboauth2::Newfbclient.send_fb_msg(params[:config], fb_user)
+        end      
+    
+        redirect_to Fboauth2::Newfbclient.get_path('redirect', params)
+      else
+        puts "-"*50
+        puts "**** Fboauth2 ERROR: Facebook User not allow permission to app****"
+        puts "-"*50
+        
+        redirect_to Fboauth2::Newfbclient.get_path('notallow', params)    
       end
-      
-      #Publica mensaje en facebook
-      if conf_data[params[:config]]["hfbmsg"] == "t"
-       Fboauth2::Newfbclient.send_fb_msg(params[:config], fb_user)
-      end      
-    
-      redirect_to Fboauth2::Newfbclient.get_redirect_path(params)
-    
     else
-  
-      puts "**** Fboauth2 ERROR: config parameter is required or fbuser not allow permission to app****"
+      puts "-"*50
+      puts "**** Fboauth2 ERROR: config parameter is required ****"
+      puts "-"*50
       redirect_to "/"
-  
     end
   end
   
